@@ -1,5 +1,7 @@
 # Take-Home Test (TypeScript)
 
+**Refer to the branch details explained at the end.**
+
 This is a template for a take-home test. See the [Instructions][Instructions]
 for details on the activity.
 
