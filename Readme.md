@@ -64,3 +64,10 @@ deno lint
 ```
 deno fmt
 ```
+
+## Branch Details
+
+- **main** - Unchanged from original
+- **feature/insights-crud** - Fixes the bugs and implements add and delete insights
+- **feature/improvements** - Add some more improvements (usability + SQL injection fix etc.)
+- **feature/idealapichanges** - Rewrote the server to match an ideal structure and separation
