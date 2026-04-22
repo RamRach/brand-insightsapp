@@ -22,6 +22,9 @@ export const AddInsight = ({ onSuccess, ...props }: AddInsightProps) => {
       body: JSON.stringify({ brand, createdAt: new Date().toISOString(), text }),
     });
     if (res.ok) {
+      setBrand(BRANDS[0].id);
+      setText("");
+      setError(null);
       onSuccess();
       props.onClose();
     } else {

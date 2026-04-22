@@ -59,7 +59,18 @@ router.get("/insights", (ctx: oak.RouterContext<string>) => {
 
 router.get("/insights/:id", (ctx: oak.RouterContext<string>) => {
   const params = ctx.params as Record<string, any>;
-  const result = lookupInsight({ db, id: parseInt(params.id, 10) });
+  const id = parseInt(params.id, 10);
+  if (isNaN(id)) {
+    ctx.response.status = 400;
+    ctx.response.body = { error: "id must be an integer" };
+    return;
+  }
+  const result = lookupInsight({ db, id });
+  if (!result) {
+    ctx.response.status = 404;
+    ctx.response.body = { error: "Insight not found" };
+    return;
+  }
   ctx.response.body = result;
   ctx.response.status = 200;
 });

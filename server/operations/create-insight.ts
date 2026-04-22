@@ -9,13 +9,9 @@ type Input = HasDBClient & {
 };
 
 export default (input: Input): Insight => {
-  const insert: insightsTable.Insert = {
-    brand: input.brand,
-    createdAt: input.createdAt,
-    text: input.text,
-  };
-
-  input.db.exec(insightsTable.insertStatement(insert));
+  input.db
+    .prepare("INSERT INTO insights (brand, createdAt, text) VALUES (?, ?, ?)")
+    .run(input.brand, input.createdAt, input.text);
 
   const [row] = input.db.sql<insightsTable.Row>`
     SELECT * FROM insights WHERE id = last_insert_rowid()

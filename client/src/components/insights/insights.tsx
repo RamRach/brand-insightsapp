@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Trash2Icon } from "lucide-react";
 import { cx } from "../../lib/cx.ts";
+import { BRANDS } from "../../lib/consts.ts";
 import styles from "./insights.module.css";
 import type { Insight } from "../../schemas/insight.ts";
 
@@ -9,6 +10,8 @@ type InsightsProps = {
   className?: string;
   onDelete: () => void;
 };
+
+const brandName = (id: number) => BRANDS.find((b) => b.id === id)?.name ?? `Brand ${id}`;
 
 export const Insights = ({ insights, className, onDelete }: InsightsProps) => {
   const [error, setError] = useState<string | null>(null);
@@ -33,9 +36,9 @@ export const Insights = ({ insights, className, onDelete }: InsightsProps) => {
             insights.map(({ id, text, date, brandId }) => (
               <div className={styles.insight} key={id}>
                 <div className={styles["insight-meta"]}>
-                  <span>{brandId}</span>
+                  <span>{brandName(brandId)}</span>
                   <div className={styles["insight-meta-details"]}>
-                    <span>{date.toString()}</span>
+                    <span>{date.toLocaleString(undefined, { timeZoneName: "longGeneric" })}</span>
                     <Trash2Icon
                       className={styles["insight-delete"]}
                       onClick={() => deleteInsight(id)}
